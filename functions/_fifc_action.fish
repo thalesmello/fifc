@@ -69,6 +69,7 @@ function _fifc_action
     if test "$default_preview" = 1
         echo "$fifc_desc"
     else if test "$default_source" = 1
+        set _fifc_custom_fzf_opts '--preview-window "wrap"'
         echo _fifc_parse_complist
     end
 end
