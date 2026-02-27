@@ -27,21 +27,30 @@ function _fifc
 
     set fifc_fzf_query (string trim --chars '\'' -- "$fifc_fzf_query")
 
+    set -l fifc_history_dir "$HOME/.local/share/fifc"
+    mkdir -p "$fifc_history_dir"
+
+    set -l history_group "$fifc_group"
+    if test -z "$history_group"
+        set history_group default
+    end
+
     set -l fzf_cmd "
         _fifc_launched_by_fzf=1 SHELL=fish fzf \
             -d \t \
-            --exact \
             --tiebreak=length \
             --select-1 \
             --exit-0 \
             --ansi \
             --tabstop=4 \
-            --multi \
+            --no-multi \
             --reverse \
             --header '$header' \
             --preview '_fifc_action preview {} {q}' \
+            --bind='tab:down,shift-tab:up' \
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
             --query '$fifc_query' \
+            --history=$HOME/.local/share/fifc/fzf-history-$history_group \
             $_fifc_custom_fzf_opts"
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
