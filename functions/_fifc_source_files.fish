@@ -1,5 +1,6 @@
 function _fifc_source_files -d "Return a command to recursively find files"
     set -l path (_fifc_path_to_complete | string escape)
+    set path_type (string match -rq '/$' "$path"; and echo 'directory'; or echo 'string' )
     set -l hidden (string match "*." "$path")
 
     set -l depth_opts
@@ -15,25 +16,24 @@ function _fifc_source_files -d "Return a command to recursively find files"
         set -e fifc_query
     end
 
+    if test "$path_type" != "directory"
+        echo _fifc_parse_complist
+        return
+    end
+
     if type -q fd
         if _fifc_test_version (fd --version) -ge "8.3.0"
             set fd_custom_opts --strip-cwd-prefix
         end
 
-        if test "$path" = {$PWD}/
-            echo "fd . $fifc_fd_opts $depth_opts --color=always --no-ignore $fd_custom_opts"
-        else if test "$path" = "."
-            echo "fd . $fifc_fd_opts $depth_opts --color=always --hidden --no-ignore $fd_custom_opts"
-        else if test -n "$hidden"
-            echo "fd . $fifc_fd_opts $depth_opts --color=always --hidden --no-ignore -- $path"
-        else
-            echo "fd . $fifc_fd_opts $depth_opts --color=always --no-ignore -- $path"
-        end
-    else if test -n "$hidden"
-        # Use sed to strip cwd prefix
-        echo "find . $path $fifc_find_opts $depth_opts ! -path . -print 2>/dev/null | sed 's|^\./||'"
+        set -l fd_base_opts $fifc_fd_opts $depth_opts --color=always --no-ignore $fd_custom_opts
+
+        echo "fd . $fd_base_opts -- $path"
     else
-        # Exclude hidden directories
-        echo "find . $path $fifc_find_opts $depth_opts ! -path . ! -path '*/.*' -print 2>/dev/null | sed 's|^\./||'"
+        if test -n "$hidden"
+            echo "find $path $fifc_find_opts $depth_opts ! -path . -print 2>/dev/null | sed 's|^\./||'"
+        else
+            echo "find $path $fifc_find_opts $depth_opts ! -path . ! -path '*/.*' -print 2>/dev/null | sed 's|^\./||'"
+        end
     end
 end
