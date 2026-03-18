@@ -13,7 +13,11 @@ if status is-interactive
 
     for mode in default insert
         if test "$FIFC_KEYBINDING" = \e\[Z -o "$FIFC_KEYBINDING" = shift-tab
-            bind --mode $mode $FIFC_KEYBINDING _fifc_or_pager_back
+            if string match -q '3.*' $FISH_VERSION
+                bind --mode $mode \e\[Z _fifc_or_pager_back
+            else
+                bind --mode $mode shift-tab _fifc_or_pager_back
+            end
         else
             bind --mode $mode $FIFC_KEYBINDING _fifc
         end
