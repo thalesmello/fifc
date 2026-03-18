@@ -33,7 +33,7 @@ function _fifc_source_files -d "Return a command to recursively find files"
         if test -n "$hidden"
             echo "find $path $fifc_find_opts $depth_opts ! -path . -print 2>/dev/null | sed 's|^\./||'"
         else
-            echo "find $path $fifc_find_opts $depth_opts ! -path . ! -path '*/.*' -print 2>/dev/null | sed 's|^\./||'"
+            echo "find $path $fifc_find_opts $depth_opts ! -path . ! -name '.*' -print 2>/dev/null | sed 's|^\./||'"
         end
     end
 end
