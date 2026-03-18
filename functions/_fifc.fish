@@ -57,9 +57,9 @@ function _fifc
     # We use eval hack because wrapping source command
     # inside a function cause some delay before fzf to show up
     eval $cmd | while read -l token
-        # don't escape '~' for path, `$` for environ
+        # resolve '~' to full path, don't escape `$` for environ
         if string match --quiet '~*' -- $token
-            set -a result (string join -- "" "~" (string sub --start 2 -- $token | string escape))
+            set -a result (string escape --no-quoted -- (_fifc_expand_tilde "$token"))
         else if string match --quiet '$*' -- $token
             set -a result (string join -- "" "\$" (string sub --start 2 -- $token | string escape))
         else
