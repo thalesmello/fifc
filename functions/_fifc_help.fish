@@ -64,7 +64,7 @@ function _fifc_help -d "Print fifc help message"
         "A rule is composed of condition(s) that, if valid, trigger commands that can:" \
         "  - Change fzf preview (-p)" \
         "  - Feed fzf input (-s)" \
-        "  - Execute when fifc_open_keybinding is pressed (defaults to ctrl-o) (-o)"
+        "  - Execute when FIFC_OPEN_KEYBINDING is pressed (defaults to ctrl-o) (-o)"
 
     __fifc_help_print -e "\n\n"
 
@@ -103,7 +103,7 @@ function _fifc_help -d "Print fifc help message"
 
     __fifc_help_opt \
         "-o, --open=COMMAND" \
-        "Command binded to fifc_open_keybinding (defaults to ctrl-o) when using fzf"
+        "Command binded to FIFC_OPEN_KEYBINDING (defaults to ctrl-o) when using fzf"
 
     __fifc_help_opt \
         "-O, --order=INT" \

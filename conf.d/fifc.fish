@@ -5,15 +5,14 @@ set -gx _fifc_ordered_comp
 
 if status is-interactive
     # Keybindings
-    set -qU fifc_keybinding
-    or set -U fifc_keybinding \t
+    set -q FIFC_KEYBINDING
+    or set -gx FIFC_KEYBINDING \t
 
-    set -qU fifc_open_keybinding
-    or set -U fifc_open_keybinding ctrl-o
+    set -q FIFC_OPEN_KEYBINDING
+    or set -gx FIFC_OPEN_KEYBINDING ctrl-o
 
     for mode in default insert
-        bind --mode $mode \t _fifc
-        bind --mode $mode $fifc_keybinding _fifc
+        bind --mode $mode $FIFC_KEYBINDING _fifc
     end
 
     # Set sources rules

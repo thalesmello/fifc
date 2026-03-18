@@ -48,7 +48,7 @@ function _fifc
             --header '$header' \
             --preview '_fifc_action preview {} {q}' \
             --bind='tab:down,shift-tab:up' \
-            --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
+            --bind='$FIFC_OPEN_KEYBINDING:execute(_fifc_action open {} {q} &> /dev/tty)' \
             --query '$fifc_query' \
             --history=$HOME/.local/share/fifc/fzf-history-$history_group \
             $_fifc_custom_fzf_opts"

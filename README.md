@@ -36,19 +36,25 @@ fisher install gazorby/fifc
 
 ## 🔧 Usage
 
-You only need to set one setting after install:
+You can optionally set the editor used to open files (defaults to `bat`):
 
 ```fish
-set -Ux fifc_editor <your-favorite-editor>
+set -gx FIFC_EDITOR <your-favorite-editor>
 ```
 
 And enjoy built-in completions!
 
-By default fifc override `tab`, but you can assign another keybinding:
+By default fifc overrides `tab`, but you can assign another keybinding by setting the `FIFC_KEYBINDING` environment variable before fifc is loaded:
 
 ```fish
-# Bind fzf completions to ctrl-x
-set -U fifc_keybinding \cx
+# Bind fzf completions to ctrl-x (e.g. in config.fish, before fifc is loaded)
+set -gx FIFC_KEYBINDING \cx
+```
+
+Similarly, you can customize the open keybinding (defaults to ctrl-o):
+
+```fish
+set -gx FIFC_OPEN_KEYBINDING ctrl-s
 ```
 
 fifc can use modern tools if available:
@@ -95,7 +101,7 @@ If conditions are met, you can bind custom commands:
 
 - **preview:** Command used for fzf preview
 - **source:** Command that feeds fzf input
-- **open:** Command binded to `fifc_open_keybinding` (defaults to ctrl-o)
+- **open:** Command binded to `FIFC_OPEN_KEYBINDING` (defaults to ctrl-o)
 
 All commands have access to the following variable describing the completion context:
 
