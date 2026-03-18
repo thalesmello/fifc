@@ -12,7 +12,11 @@ if status is-interactive
     or set -gx FIFC_OPEN_KEYBINDING ctrl-o
 
     for mode in default insert
-        bind --mode $mode $FIFC_KEYBINDING _fifc
+        if test "$FIFC_KEYBINDING" = \e\[Z -o "$FIFC_KEYBINDING" = shift-tab
+            bind --mode $mode $FIFC_KEYBINDING _fifc_or_pager_back
+        else
+            bind --mode $mode $FIFC_KEYBINDING _fifc
+        end
     end
 
     # Set sources rules
