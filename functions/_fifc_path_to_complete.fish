@@ -3,6 +3,6 @@ function _fifc_path_to_complete
     if string match --regex --quiet -- '.*(\w|\.|/)+$' "$token"
         _fifc_expand_tilde "$token"
     else
-        echo {$PWD}/
+        echo ./
     end
 end
