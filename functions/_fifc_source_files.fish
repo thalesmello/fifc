@@ -4,7 +4,7 @@ function _fifc_source_files -d "Return a command to recursively find files"
     set -l hidden (string match "*." "$path")
 
     set -l depth_opts
-    if test "$path" = "$HOME/" -o "$path" = "$HOME"
+    if test (path resolve "$path") = "$HOME"
         if type -q fd
             set depth_opts --max-depth 1
         else
