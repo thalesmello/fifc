@@ -37,6 +37,9 @@ end
 
 # Load fifc preview rules only when fish is launched fzf
 if set -q _fifc_launched_by_fzf
+    if set -q _FIFC_FISH_FUNCTION_PATH
+        set -g fish_function_path $_FIFC_FISH_FUNCTION_PATH $fish_function_path
+    end
     # Builtin preview/open commands
     fifc \
         -n 'test "$fifc_group" = "options"' \

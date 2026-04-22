@@ -1,5 +1,6 @@
 function _fifc
     set -f --export SHELL (command --search fish)
+    set -f --export _FIFC_FISH_FUNCTION_PATH $fish_function_path
     set -gx IS_FIFC_COMPLETION 1
     set -l result
     set -Ux _fifc_extract_regex
